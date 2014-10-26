@@ -68,7 +68,20 @@ class Wraith::Wraith
   end
 
   def paths
-    @config['paths']
+    result = {}
+    url_num = 0
+
+    if @config['paths_file'] then
+      File.foreach(@config['paths_file']) { |line| 
+        puts line
+        result["#{url_num}"] = line
+        url_num = url_num + 1
+      }
+    else
+      result = @config['paths']
+    end
+
+    result
   end
 
   def engine

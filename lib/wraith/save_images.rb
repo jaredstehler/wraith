@@ -35,11 +35,11 @@ class Wraith::SaveImages
   end
 
   def base_urls(path)
-    wraith.base_domain + path unless wraith.base_domain.nil?
+    "#{wraith.base_domain}" % [path] unless wraith.base_domain.nil?
   end
 
   def compare_urls(path)
-    wraith.comp_domain + path unless wraith.comp_domain.nil?
+    "#{wraith.comp_domain}" % [path] unless wraith.comp_domain.nil?
   end
 
   def file_names(width, label, domain_label)
@@ -74,6 +74,8 @@ class Wraith::SaveImages
 
       base_url = base_urls(path)
       compare_url = compare_urls(path)
+
+      puts base_url
 
       wraith.widths.each do |width|
         base_file_name    = file_names(width, label, "#{wraith.base_domain_label}#{history_label}")

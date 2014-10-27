@@ -62,6 +62,7 @@ class Wraith::FolderManager
       dirs.each do |a, b|
         # If we are running in "diffs_only mode, and none of the variants show a difference
         # we remove the file from the shots folder
+
         if b.none? { |_k, v| v[:data] > 0 }
           FileUtils.rm_rf("#{wraith.directory}/#{a}")
           dirs.delete(a)

@@ -92,6 +92,7 @@ class Wraith::GalleryGenerator
 
   def data_check(size_dict, dirname, filepath)
     size_dict[:data] = File.read("#{dirname}/#{filepath}").to_f
+    size_dict[:base_url] = File.read("%s/%s" % [dirname, filepath.gsub(/[a-z0-9_]+_data.txt$/, 'baseurl.txt')])
   end
 
   def sorting_dirs(dirs)

@@ -73,7 +73,6 @@ class Wraith::Wraith
 
     if @config['paths_file'] then
       File.foreach(@config['paths_file']) { |line| 
-        puts line
         result["#{url_num}"] = line.strip!
         url_num = url_num + 1
       }

@@ -76,6 +76,7 @@ class Wraith::SaveImages
       compare_url = compare_urls(path)
 
       File.open("#{directory}/#{label}/baseurl.txt", 'w') { |file| file.write(base_url) }
+      File.open("#{directory}/#{label}/path.txt", "w") { |file| file.write(path) }
 
       wraith.widths.each do |width|
         base_file_name    = file_names(width, label, "#{wraith.base_domain_label}#{history_label}")

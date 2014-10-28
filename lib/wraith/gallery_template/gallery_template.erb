@@ -31,7 +31,7 @@
                         <a name="<%= dir %>"></a>
                         <% sizes.to_a.sort.each do |size, files| %>
                             <div class="row">
-                                <h4><a href="<%=files[:base_url]%>"><%=files[:base_url]%></a></h4>
+                                <h4><a href="<%=files[:path]%>"><%=files[:path]%></a></h4>
                             </div>
                             <div class="row">
                                 <h3 class="col-lg-1 text-muted"><%=files[:size]%></h3>

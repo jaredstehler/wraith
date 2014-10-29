@@ -16,7 +16,7 @@ class Wraith::CompareImages
       diff = base.gsub(/([a-z0-9]+).png$/, 'diff.png')
       info = base.gsub(/([a-z0-9]+).png$/, 'data.txt')
       compare_task(base, compare, diff, info)
-      puts 'Saved diff'
+      puts "Saved diff for #{base}"
     end
   end
 

@@ -25,6 +25,6 @@ class Wraith::Thumbnails
       FileUtils.mkdir_p(File.dirname(output_path))
     end
 
-    `convert #{png_path} -thumbnail 200 -crop 200x200+0+0 #{output_path}`
+    `convert #{png_path} -thumbnail 400 -crop 400x400+0+0 #{output_path}`
   end
 end

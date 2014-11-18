@@ -10,6 +10,7 @@ class Wraith::GalleryGenerator
 
   TEMPLATE_LOCATION = File.expand_path('gallery_template/gallery_template.erb', File.dirname(__FILE__))
   TEMPLATE_BY_DOMAIN_LOCATION = File.expand_path('gallery_template/gallery_template.erb', File.dirname(__FILE__))
+  DIFF_HTML_LOCATION = File.expand_path('gallery_template/diff.html', File.dirname(__FILE__))
   BOOTSTRAP_LOCATION = File.expand_path('gallery_template/bootstrap.min.css', File.dirname(__FILE__))
 
   def initialize(config)
@@ -93,6 +94,7 @@ class Wraith::GalleryGenerator
   def data_check(size_dict, dirname, filepath)
     size_dict[:data] = File.read("#{dirname}/#{filepath}").to_f
     size_dict[:base_url] = File.read("%s/%s" % [dirname, filepath.gsub(/[a-z0-9_]+_data.txt$/, 'baseurl.txt')])
+    size_dict[:compare_url] = File.read("%s/%s" % [dirname, filepath.gsub(/[a-z0-9_]+_data.txt$/, 'compareurl.txt')])
     size_dict[:path] = File.read("%s/%s" % [dirname, filepath.gsub(/[a-z0-9_]+_data.txt$/, 'path.txt')])
   end
 
@@ -124,6 +126,7 @@ class Wraith::GalleryGenerator
     directories = parse_directories(@location)
     generate_html(@location, directories, TEMPLATE_BY_DOMAIN_LOCATION, dest, withPath)
     FileUtils.cp(BOOTSTRAP_LOCATION, "#{@location}/bootstrap.min.css")
+    FileUtils.cp(DIFF_HTML_LOCATION,  "#{@location}/diff.html")
   end
 
   class ErbBinding < OpenStruct

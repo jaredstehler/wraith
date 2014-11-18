@@ -10,12 +10,13 @@
         </style>
     </head>
     <body>
-        <div class="container">
+        <div class="container" style="width:100%">
             <div class="row page-header">
                 <h1>List of screenshots for <%= location %> <small>taken <%= Time.now.strftime('%Y/%m/%d %H:%M:%S') %></small></h1>
             </div>
             <div class="row">
                 <!-- <%= directories.length %> -->
+                <!--
                 <div class="col-lg-2">
                     <div class="panel">
                         <div class="panel-heading">Screenshots:</div>
@@ -26,12 +27,15 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-10">
+            -->
+                <div class="col-lg-12">
                     <% directories.each do |dir, sizes| %>
                         <a name="<%= dir %>"></a>
                         <% sizes.to_a.sort.each do |size, files| %>
                             <div class="row">
-                                <h4><a href="<%=files[:path]%>"><%=files[:path]%></a></h4>
+                                <h4>
+                                    <a href="diff.html?base=<%=ERB::Util.url_encode(files[:base_url])%>&amp;compare=<%=ERB::Util.url_encode(files[:compare_url])%>" target="_blank"><%=files[:path]%></a>
+                                </h4>
                             </div>
                             <div class="row">
                                 <h3 class="col-lg-1 text-muted"><%=files[:size]%></h3>

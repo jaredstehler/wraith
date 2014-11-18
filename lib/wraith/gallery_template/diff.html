@@ -1,0 +1,38 @@
+<html>
+  <head>
+  	<title>Page Comparison</title>
+  </head>
+  <body>
+  	<div id="main" style="width:100%">
+  	</div>
+
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script>
+		function getParameterByName(name) {
+		    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+		    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+		        results = regex.exec(location.search);
+		    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+		}
+
+		$(function() {
+			var base = getParameterByName("base"),
+				compare = getParameterByName("compare"),
+				$main = $('#main'),
+				height = $(window).height();
+
+			function frame(url) {
+				$('<iframe>')
+					.attr('width', '49%')
+					.attr('height', height)
+					.attr('style', 'float: left')
+					.attr('src', url)
+					.appendTo($main);
+			}
+
+			frame(base);
+			frame(compare);
+		});
+    </script>
+  </body>
+</html>

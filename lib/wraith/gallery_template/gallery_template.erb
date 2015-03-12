@@ -4,8 +4,7 @@
         <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
         <style type="text/css">
             .short-screenshot {
-                height: 400px;
-                width: 400px;
+              max-width: 200px;
             }
         </style>
     </head>
@@ -30,8 +29,16 @@
             -->
                 <div class="col-lg-12">
                     <% directories.each do |dir, sizes| %>
-                        <a name="<%= dir %>"></a>
-                        <% sizes.to_a.sort.each do |size, files| %>
+                      <% sizes.to_a.sort.each do |size, files| %>
+                        <div class="row">
+                          <a name="<%= dir %>"></a>
+                            <% if files[:data] > threshold %>
+                              <h2 style="color:#CC0101"><%= dir.gsub('__', '/') %> <span class="glyphicon glyphicon-remove"></span></h2>
+                            <% else %>
+                              <h2><%= dir.gsub('__', '/') %></h2>
+                            <% end %>
+                        </div>
+
                             <div class="row">
                                 <h4>
                                     <a href="diff.html?base=<%=ERB::Util.url_encode(files[:base_url])%>&amp;compare=<%=ERB::Util.url_encode(files[:compare_url])%>" target="_blank"><%=files[:path]%></a>

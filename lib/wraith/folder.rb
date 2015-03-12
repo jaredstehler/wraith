@@ -34,7 +34,7 @@ class Wraith::FolderManager
   end
 
   def copy_old_shots
-    FileUtils.cp_r(dir, history_dir)
+    FileUtils.cp_r("#{dir}/.", "#{history_dir}/")
   end
 
   def restore_shots
@@ -55,17 +55,22 @@ class Wraith::FolderManager
     puts 'Creating Folders'
   end
 
-  # Tidy up the shots folder, removing uncessary files
-  #
   def tidy_shots_folder(dirs)
     if wraith.mode == 'diffs_only'
-      dirs.each do |a, b|
-        # If we are running in "diffs_only mode, and none of the variants show a difference
-        # we remove the file from the shots folder
+      dirs.each do |folder_name, shot_info|
+        if shot_info.none? { |_k, v| v[:data] > 0 }
+          FileUtils.rm_rf("#{wraith.directory}/#{folder_name}")
+          dirs.delete(folder_name)
+        end
+      end
+    end
+  end
 
-        if b.none? { |_k, v| v[:data] > 0 }
-          FileUtils.rm_rf("#{wraith.directory}/#{a}")
-          dirs.delete(a)
+  def threshold_rate(dirs)
+    dirs.each do |_folder_name, shot_info|
+      shot_info.each do |_k, v|
+        if v[:data] > wraith.threshold
+          return false
         end
       end
     end
